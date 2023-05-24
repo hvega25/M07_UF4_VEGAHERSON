@@ -12,6 +12,12 @@
 
 <!-- Inicia a mostrar datos segun la url y siempre muestra el h1-->
     <h1>Index del proyecto</h1>
+
+    <!---IMPORTANTE EL  href="{% url 'alumno' %}" hace referencia a una url con el nombre alumno -->
+    <a href="{% url 'alumno' %}">Ir a la página de alumnos</a>
+    <br>
+    <a href="{% url 'teacher' %}">Ir a la página de profesores</a>
+    
 {% block content %}
 {% endblock %}
 

@@ -1,5 +1,10 @@
 from django.shortcuts import render
 
+#Método que sea la página principal
+
+def home (request):
+    return render(request, 'index.html')
+
 #Método que devuelve los datos de los alumnos
 def alum (request):
     alumnes = {
@@ -12,3 +17,5 @@ def alum (request):
     }
     context = {'alu': alumnes}
     return render(request, 'alumno.html', context)
+
+

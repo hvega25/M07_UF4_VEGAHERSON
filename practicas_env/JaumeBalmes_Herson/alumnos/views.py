@@ -1,7 +1,13 @@
 from django.shortcuts import render
 
-#Método que sea la página principal
+#incluyento la libreria form
+from .forms import AlumnoForm
 
+#importar models 
+
+from .models import alumnos
+
+#Método que sea la página principal
 def home (request):
     return render(request, 'index.html')
 
@@ -19,3 +25,14 @@ def alum (request):
     return render(request, 'alumno.html', context)
 
 
+#Método de alumno form
+def alumno_form(request):
+    form = AlumnoForm()
+    context = {'form': form}
+    return render (request, 'alumno_form.html', context)
+
+
+#vista para lectura de base de datos
+def listar (request):
+    student = alumnos.objects.all()
+    return render(request, "alumno_listar.html", {"alum":student})

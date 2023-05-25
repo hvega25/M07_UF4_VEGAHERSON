@@ -5,5 +5,9 @@ from . import views
 #Rutas de la aplicación
 urlpatterns=[
     #url de la aplicacion
-    path('alumnos/', views.alum, name='alumno')
+    path('alumnos/', views.alum, name='alumno'),
+    path('alumno-form/', views.alumno_form , name='alumno_form'),
+
+    #url para listar alumnos de la base de datos
+    path('listar/' , views.listar , name='lista_alumnos')
 ]

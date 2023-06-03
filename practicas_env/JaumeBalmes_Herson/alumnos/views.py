@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 #incluyento la libreria form
 from .forms import AlumnoForm
@@ -25,9 +25,15 @@ def alum (request):
     return render(request, 'alumno.html', context)
 
 
-#Método de alumno form
+#Método de de alumno
 def alumno_form(request):
     form = AlumnoForm()
+
+    if request.method == 'POST':
+        form = AlumnoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('alumno_listar.html')
     context = {'form': form}
     return render (request, 'alumno_form.html', context)
 

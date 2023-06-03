@@ -56,3 +56,15 @@ def update_alumno(request, pk):
             
     context = {'form': form}
     return render (request, 'alumno_form.html', context)
+
+
+#Método para eliminar un elemento
+def delete_alumno(request, pk):
+    student = alumnos.objects.get(id = pk)
+ 
+
+    if request.method == 'POST':
+        student.delete()
+            
+    context = {'object': student}
+    return render (request, 'alumno_delete.html', context)

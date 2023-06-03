@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-#incluyento la libreria form
+#incluyendo la libreria form
 from .forms import AlumnoForm
 
 #importar models 
@@ -25,9 +25,15 @@ def alum (request):
     return render(request, 'alumno.html', context)
 
 
-#Método de alumno form
+#Método de de alumno
 def alumno_form(request):
     form = AlumnoForm()
+
+    if request.method == 'POST':
+        form = AlumnoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            
     context = {'form': form}
     return render (request, 'alumno_form.html', context)
 
@@ -36,3 +42,29 @@ def alumno_form(request):
 def listar (request):
     student = alumnos.objects.all()
     return render(request, "alumno_listar.html", {"alum":student})
+
+
+#Método para actualizar un elemento
+def update_alumno(request, pk):
+    student = alumnos.objects.get(id = pk)
+    form = AlumnoForm(instance=student)
+
+    if request.method == 'POST':
+        form = AlumnoForm(request.POST, instance=student)
+        if form.is_valid():
+            form.save()
+            
+    context = {'form': form}
+    return render (request, 'alumno_form.html', context)
+
+
+#Método para eliminar un elemento
+def delete_alumno(request, pk):
+    student = alumnos.objects.get(id = pk)
+ 
+
+    if request.method == 'POST':
+        student.delete()
+            
+    context = {'object': student}
+    return render (request, 'alumno_delete.html', context)

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-#incluyento la libreria form
+#incluyendo la libreria form
 from .forms import AlumnoForm
 
 #importar models 
@@ -33,7 +33,7 @@ def alumno_form(request):
         form = AlumnoForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('alumno_listar.html')
+            
     context = {'form': form}
     return render (request, 'alumno_form.html', context)
 
@@ -42,3 +42,17 @@ def alumno_form(request):
 def listar (request):
     student = alumnos.objects.all()
     return render(request, "alumno_listar.html", {"alum":student})
+
+
+#Método para actualizar un elemento
+def update_alumno(request, pk):
+    student = alumnos.objects.get(id = pk)
+    form = AlumnoForm(instance=student)
+
+    if request.method == 'POST':
+        form = AlumnoForm(request.POST, instance=student)
+        if form.is_valid():
+            form.save()
+            
+    context = {'form': form}
+    return render (request, 'alumno_form.html', context)
